@@ -23,6 +23,15 @@ npm i
 npm run dev
 ```
 
+## Supabase
+
+The app uses its own Supabase project. Set these variables in `.env` locally and in your Vercel project settings:
+
+```sh
+VITE_SUPABASE_URL=https://<project-ref>.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+```
+
 ## Deploying
 
 This is a static Vite + React single-page app. `npm run build` writes it to `dist/`, and `vercel.json` rewrites every path to `index.html` so deep links like `/app` resolve client-side.
