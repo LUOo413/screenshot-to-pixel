@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,7 @@ export function SiteHeader({ right }: { right?: ReactNode }) {
         </Link>
         {right ?? (
           <Button variant="hero" asChild>
-            <Link to="/auth">Sign in / 登入</Link>
+            <Link to="/sign-in">Sign in / 登入</Link>
           </Button>
         )}
       </div>

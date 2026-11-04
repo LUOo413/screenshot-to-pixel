@@ -1,25 +1,21 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/SiteHeader";
+import { usePageMeta } from "@/lib/page-meta";
+import type { requireUser } from "@/lib/require-user";
 
-export const Route = createFileRoute("/_authenticated/app")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard — Video Speed Reader" },
-      { name: "description", content: "Your Video Speed Reader dashboard." },
-      { property: "og:title", content: "Dashboard — Video Speed Reader" },
-      { property: "og:description", content: "Your Video Speed Reader dashboard." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: AppPage,
-});
+export default function Dashboard() {
+  usePageMeta({
+    title: "Dashboard — Video Speed Reader",
+    description: "Your Video Speed Reader dashboard.",
+    ogTitle: "Dashboard — Video Speed Reader",
+    ogDescription: "Your Video Speed Reader dashboard.",
+    twitterCard: "summary",
+  });
 
-function AppPage() {
-  const { user } = Route.useRouteContext();
+  const { user } = useLoaderData<typeof requireUser>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -27,7 +23,7 @@ function AppPage() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
+    navigate("/sign-in", { replace: true });
   }
 
   return (

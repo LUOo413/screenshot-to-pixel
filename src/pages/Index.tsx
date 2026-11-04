@@ -1,25 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import { useEffect, useRef, type ReactNode } from "react";
 import { Gauge, Timer, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/SiteHeader";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Video Speed Reader — 三分鐘拿到逐字稿" },
-      {
-        name: "description",
-        content: "Upload your video, get a clean transcript in three minutes. 上傳影片，三分鐘內拿到逐字稿。",
-      },
-      { property: "og:title", content: "Video Speed Reader" },
-      { property: "og:description", content: "Upload your video, get a clean transcript in three minutes." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
+import { usePageMeta } from "@/lib/page-meta";
 
 function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -66,7 +50,15 @@ const features = [
   },
 ];
 
-function Index() {
+export default function Index() {
+  usePageMeta({
+    title: "Video Speed Reader — 三分鐘拿到逐字稿",
+    description: "Upload your video, get a clean transcript in three minutes. 上傳影片，三分鐘內拿到逐字稿。",
+    ogTitle: "Video Speed Reader",
+    ogDescription: "Upload your video, get a clean transcript in three minutes.",
+    twitterCard: "summary_large_image",
+  });
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -83,7 +75,7 @@ function Index() {
               </p>
               <div className="mt-10 flex justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <Link to="/auth" search={{ mode: "signup" }}>
+                  <Link to="/sign-up">
                     Get started free
                   </Link>
                 </Button>

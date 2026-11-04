@@ -1,16 +1,32 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createRouter } from "@tanstack/react-router";
-import { routeTree } from "./routeTree.gen";
+import { createBrowserRouter, redirect, type RouteObject } from "react-router";
 
-export const getRouter = () => {
-  const queryClient = new QueryClient();
+import { requireUser } from "@/lib/require-user";
+import AuthPage from "@/pages/Auth";
+import Dashboard from "@/pages/Dashboard";
+import Index from "@/pages/Index";
+import { NotFound, Root, RootError } from "@/pages/Root";
 
-  const router = createRouter({
-    routeTree,
-    context: { queryClient },
-    scrollRestoration: true,
-    defaultPreloadStaleTime: 0,
-  });
+export const routes: RouteObject[] = [
+  {
+    element: <Root />,
+    errorElement: <RootError />,
+    hydrateFallbackElement: <div className="min-h-screen bg-background" />,
+    children: [
+      { path: "/", element: <Index /> },
+      { path: "/sign-in", element: <AuthPage mode="signin" /> },
+      { path: "/sign-up", element: <AuthPage mode="signup" /> },
+      // Old URLs from before the SPA conversion.
+      {
+        path: "/auth",
+        loader: ({ request }) =>
+          redirect(
+            new URL(request.url).searchParams.get("mode") === "signup" ? "/sign-up" : "/sign-in",
+          ),
+      },
+      { path: "/app", loader: requireUser, element: <Dashboard /> },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+];
 
-  return router;
-};
+export const router = createBrowserRouter(routes);

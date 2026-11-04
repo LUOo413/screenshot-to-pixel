@@ -22,3 +22,7 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Deploying
+
+This is a static Vite + React single-page app. `npm run build` writes it to `dist/`, and `vercel.json` rewrites every path to `index.html` so deep links like `/app` resolve client-side.

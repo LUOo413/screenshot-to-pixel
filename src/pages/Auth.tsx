@@ -1,33 +1,24 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SiteHeader } from "@/components/SiteHeader";
+import { usePageMeta } from "@/lib/page-meta";
 
 type Mode = "signin" | "signup";
 
-export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: Mode } =>
-    s["mode"] === "signup" ? { mode: "signup" } : {},
-  head: () => ({
-    meta: [
-      { title: "Sign in — Video Speed Reader" },
-      { name: "description", content: "Sign in or create your Video Speed Reader account." },
-      { property: "og:title", content: "Sign in — Video Speed Reader" },
-      { property: "og:description", content: "Sign in or create your Video Speed Reader account." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: AuthPage,
-});
+export default function AuthPage({ mode }: { mode: Mode }) {
+  usePageMeta({
+    title: "Sign in — Video Speed Reader",
+    description: "Sign in or create your Video Speed Reader account.",
+    ogTitle: "Sign in — Video Speed Reader",
+    ogDescription: "Sign in or create your Video Speed Reader account.",
+    twitterCard: "summary",
+  });
 
-function AuthPage() {
-  const search = Route.useSearch();
   const navigate = useNavigate();
-  const [mode, setMode] = useState<Mode>(search.mode ?? "signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +26,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/app", replace: true });
+      if (data.user) navigate("/app", { replace: true });
     });
   }, [navigate]);
 
@@ -53,7 +44,7 @@ function AuthPage() {
         : await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return setError(error.message);
-    navigate({ to: "/app", replace: true });
+    navigate("/app", { replace: true });
   }
 
   const isSignup = mode === "signup";
@@ -91,7 +82,7 @@ function AuthPage() {
           </form>
           <p className="mt-6 text-center text-sm text-muted-foreground">
             {isSignup ? "Already have an account?" : "No account yet?"}{" "}
-            <button type="button" className="font-medium text-primary-glow hover:underline" onClick={() => { setMode(isSignup ? "signin" : "signup"); setError(null); }}>
+            <button type="button" className="font-medium text-primary-glow hover:underline" onClick={() => { navigate(isSignup ? "/sign-in" : "/sign-up"); setError(null); }}>
               {isSignup ? "Sign in" : "Sign up"}
             </button>
           </p>
