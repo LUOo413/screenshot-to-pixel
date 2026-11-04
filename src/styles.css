@@ -65,42 +65,45 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.13 0.012 285);
-  --foreground: oklch(0.97 0.005 285);
-  --card: oklch(0.17 0.016 285);
-  --card-foreground: oklch(0.97 0.005 285);
-  --popover: oklch(0.17 0.016 285);
-  --popover-foreground: oklch(0.97 0.005 285);
-  --primary: oklch(0.65 0.22 295);
-  --primary-glow: oklch(0.75 0.18 310);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.22 0.02 285);
-  --secondary-foreground: oklch(0.97 0.005 285);
-  --muted: oklch(0.21 0.015 285);
-  --muted-foreground: oklch(0.7 0.02 285);
-  --accent: oklch(0.25 0.04 295);
-  --accent-foreground: oklch(0.97 0.005 285);
-  --destructive: oklch(0.65 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.65 0.22 295);
-  --chart-1: oklch(0.65 0.22 295);
-  --chart-2: oklch(0.7 0.15 200);
-  --chart-3: oklch(0.75 0.15 80);
-  --chart-4: oklch(0.7 0.18 340);
-  --chart-5: oklch(0.6 0.12 260);
-  --sidebar: oklch(0.15 0.014 285);
-  --sidebar-foreground: oklch(0.97 0.005 285);
-  --sidebar-primary: oklch(0.65 0.22 295);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.22 0.02 285);
-  --sidebar-accent-foreground: oklch(0.97 0.005 285);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.65 0.22 295);
+  --background: oklch(0.975 0.008 230);
+  --foreground: oklch(0.27 0.06 255);
+  --card: oklch(0.995 0.003 230);
+  --card-foreground: oklch(0.27 0.06 255);
+  --popover: oklch(0.995 0.003 230);
+  --popover-foreground: oklch(0.27 0.06 255);
+  --primary: oklch(0.46 0.12 255);
+  --primary-glow: oklch(0.52 0.12 240);
+  --primary-foreground: oklch(0.995 0 0);
+  --secondary: oklch(0.94 0.02 235);
+  --secondary-foreground: oklch(0.27 0.06 255);
+  --muted: oklch(0.95 0.012 235);
+  --muted-foreground: oklch(0.45 0.05 250);
+  --accent: oklch(0.93 0.03 230);
+  --accent-foreground: oklch(0.27 0.06 255);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.995 0 0);
+  --border: oklch(0.46 0.12 255 / 16%);
+  --input: oklch(0.46 0.12 255 / 26%);
+  --ring: oklch(0.46 0.12 255);
+  --chart-1: oklch(0.46 0.12 255);
+  --chart-2: oklch(0.72 0.1 230);
+  --chart-3: oklch(0.8 0.14 85);
+  --chart-4: oklch(0.27 0.06 255);
+  --chart-5: oklch(0.6 0.08 240);
+  --sidebar: oklch(0.96 0.012 235);
+  --sidebar-foreground: oklch(0.27 0.06 255);
+  --sidebar-primary: oklch(0.46 0.12 255);
+  --sidebar-primary-foreground: oklch(0.995 0 0);
+  --sidebar-accent: oklch(0.93 0.03 230);
+  --sidebar-accent-foreground: oklch(0.27 0.06 255);
+  --sidebar-border: oklch(0.46 0.12 255 / 16%);
+  --sidebar-ring: oklch(0.46 0.12 255);
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
-  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.65 0.22 295 / 0.28), transparent 70%);
-  --shadow-glow: 0 10px 40px -10px oklch(0.65 0.22 295 / 0.55);
+  --gradient-text: linear-gradient(135deg, oklch(0.27 0.06 255), var(--primary));
+  --gradient-hero:
+    linear-gradient(to bottom, oklch(1 0 0 / 0.7), oklch(1 0 0 / 0.45) 45%, transparent 72%),
+    url("/theme/antarctic-hero.jpg");
+  --shadow-glow: 0 10px 40px -12px oklch(0.46 0.12 255 / 0.5);
 }
 
 @layer base {
@@ -115,10 +118,19 @@
 }
 
 @utility bg-gradient-primary { background-image: var(--gradient-primary); }
-@utility bg-gradient-hero { background-image: var(--gradient-hero); }
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+  background-size: cover;
+  background-position: center bottom;
+}
+@utility bg-penguins {
+  background-image: url("/theme/penguins.jpg");
+  background-size: cover;
+  background-position: center;
+}
 @utility shadow-glow { box-shadow: var(--shadow-glow); }
 @utility text-gradient {
-  background-image: var(--gradient-primary);
+  background-image: var(--gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

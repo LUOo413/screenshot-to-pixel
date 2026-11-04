@@ -64,7 +64,7 @@ export default function Index() {
       <SiteHeader />
       <main className="flex-1">
         <section className="relative overflow-hidden bg-gradient-hero">
-          <div className="mx-auto max-w-4xl px-6 py-24 text-center sm:py-32">
+          <div className="mx-auto max-w-4xl px-6 pb-72 pt-16 text-center sm:pb-[28rem] sm:pt-20">
             <Reveal>
               <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
                 <span className="text-gradient">Video Speed Reader</span>
@@ -101,6 +101,7 @@ export default function Index() {
           </div>
         </section>
       </main>
+      <div aria-hidden className="bg-penguins h-40 sm:h-56" />
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
         © 2026 Video Speed Reader
       </footer>
